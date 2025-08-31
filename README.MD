@@ -99,7 +99,7 @@ Para rodar no ambiente RC:
 
 - Variáveis de ambiente controlam comportamento como modo headless, captura de screenshots, gravação de vídeo, retries, timeouts, e quais browsers executar.
 
-- Ajuste os arquivos .env.\* para alterar essas configurações sem modificar o código.
+- Ajuste os arquivos \*.env para alterar essas configurações sem modificar o código.
 
 - Para rodar testes em browsers específicos, use as variáveis TEST_CHROMIUM, TEST_FIREFOX, TEST_WEBKIT e TEST_MOBILE com valores true ou false.
 
@@ -114,3 +114,6 @@ Você pode alterar o formato do relatório via variável REPORTER no arquivo .en
 - Use HEADLESS=false para ver os testes rodando visualmente durante o desenvolvimento.
 - Ative TRACE=on para gerar traces detalhados em caso de falhas.
 - Ajuste RETRIES para controlar quantas vezes um teste falha será reexecutado.
+
+## Padrões de projeto
+Deixamos exemplos de testes utilizando PageObject e ScreenPlay para servir de base para outros projetos.

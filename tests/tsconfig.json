@@ -22,7 +22,9 @@
     "paths": {
       // Exemplo de alias para facilitar importações
       "@pages/*": ["pages/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@screenplay/*": ["screenplay/*"],
+      "@fixtures/*": ["fixtures/*"]
     }
   },
   "include": ["**/*.ts"],
