@@ -1,6 +1,6 @@
 # Projeto de Automação com Playwright
 
-Este projeto utiliza Playwright com TypeScript para automação de testes end-to-end, suportando múltiplos ambientes (UAT, RC, PRD) com configuração via arquivos `.env`.
+Este projeto utiliza Playwright com TypeScript para automação de testes end-to-end, suportando múltiplos ambientes (UAT, RC, etc...) com configuração via arquivos `.env`.
 
 ---
 
@@ -25,8 +25,8 @@ Este projeto utiliza Playwright com TypeScript para automação de testes end-to
 1. Clone o repositório:
 
    ```bash
-   git clone <url-do-repositorio>
-   cd <nome-do-projeto>
+   git clone https://github.com/RafaelFerSilva/playwright_code_base_ts.git
+   cd playwright_code_base_ts
    ```
 
 2. Instale as dependências:
