@@ -6,6 +6,7 @@
     "test": "npx playwright test --project=chromium",
     "test:uat": "cross-env ENV=uat npx playwright test",
     "test:rc": "cross-env ENV=rc npx playwright test",
+    "test:ci": "HEADLESS=true npx playwright test --reporter=dot",
     "report": "npx playwright show-report",
     "debug": "npx playwright test --debug --project=chromium",
     "lint": "eslint . --ext .ts,.js",
