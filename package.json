@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npx playwright test --project=chromium",
+    "pretest": "tsc --incremental -p tests/tsconfig.json",
+    "test": "playwright test",
     "test:uat": "cross-env ENV=uat npx playwright test",
     "test:rc": "cross-env ENV=rc npx playwright test",
     "test:ci": "HEADLESS=true npx playwright test",
@@ -22,8 +23,9 @@
     "@typescript-eslint/eslint-plugin": "^8.41.0",
     "@typescript-eslint/parser": "^8.41.0",
     "cross-env": "^10.0.0",
-    "eslint": "^8.57.1",
+    "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-playwright": "^2.2.2",
     "eslint-plugin-prettier": "^5.5.4",
     "prettier": "^3.6.2"
   },

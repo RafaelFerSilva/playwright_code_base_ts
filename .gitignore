@@ -8,3 +8,4 @@ node_modules/
 uat.env
 rc.env
 env.*
+/dist
