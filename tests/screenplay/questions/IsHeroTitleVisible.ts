@@ -1,6 +1,8 @@
-import { Question, Actor } from '@screenplay/core/Actor';
+
+import { Question } from '@interfaces/IQuestion';
 import { expect } from '@playwright/test';
 import { BrowseTheWeb } from '@screenplay/abilities/BrowseTheWeb';
+import { Actor } from '@screenplay/core/Actor';
 
 export class IsHeroTitleVisible implements Question {
   private expectedText: string;

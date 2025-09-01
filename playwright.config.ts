@@ -52,10 +52,9 @@ function parseReport(): string | ReporterDescription[] {
   if (reporters.length === 1) {
     const [name, options] = parseReporterWithOptions(reporters[0]);
     if (options) {
-      // Retorna array mutável com uma tupla
       return [[name, options]];
     }
-    return name; // string simples
+    return name;
   }
 
   return reporters.map(r => {
@@ -97,6 +96,8 @@ const retries = isCI ? Number(process.env.RETRIES) || 2 : 0;
 const workers = isCI ? 1 : undefined;
 
 const config: PlaywrightTestConfig = defineConfig({
+  globalSetup: require.resolve('./tests/global-setup'),
+  globalTeardown: require.resolve('./tests/global-teardown'),
   testDir: "./tests/specs",
   fullyParallel: true,
   forbidOnly: isCI,

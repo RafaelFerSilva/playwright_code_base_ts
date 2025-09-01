@@ -1,12 +1,7 @@
-export interface Ability {}
+import { Ability } from "@interfaces/IAbility";
+import { Question } from "@interfaces/IQuestion";
+import { Task } from "@interfaces/ITask";
 
-export interface Task {
-  performAs(actor: Actor): Promise<void>;
-}
-
-export interface Question {
-  answeredBy(actor: Actor): Promise<any>;
-}
 
 export class Actor {
   private abilities = new Map<Function, Ability>();
@@ -32,7 +27,7 @@ export class Actor {
     return Promise.all(tasks.map(task => task.performAs(this)));
   }
 
-  asksFor<T>(question: Question): Promise<T> {
+  asksFor<T>(question: Question<T>): Promise<T> {
     return question.answeredBy(this);
   }
 }

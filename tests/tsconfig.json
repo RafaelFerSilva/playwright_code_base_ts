@@ -24,7 +24,12 @@
       "@pages/*": ["pages/*"],
       "@utils/*": ["utils/*"],
       "@screenplay/*": ["screenplay/*"],
-      "@fixtures/*": ["fixtures/*"]
+      "@fixtures/*": ["fixtures/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@adapters/*": ["adapters/*"],
+      "@sql/*": ["sql/*"],
+      "@repositories/*": ["repositories/*"],
+      "@services/*": ["services/*"]
     }
   },
   "include": ["**/*.ts"],

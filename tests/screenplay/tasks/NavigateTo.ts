@@ -1,6 +1,7 @@
 
+import { Task } from '@interfaces/ITask';
 import { BrowseTheWeb } from '@screenplay/abilities/BrowseTheWeb';
-import { Task, Actor } from '@screenplay/core/Actor';
+import { Actor } from '@screenplay/core/Actor';
 
 export class NavigateTo implements Task {
   constructor(private url: string) {}
