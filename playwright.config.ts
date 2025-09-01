@@ -5,6 +5,7 @@ import {
   TraceMode,
   ScreenshotMode,
   VideoMode,
+  ReporterDescription,
 } from "@playwright/test";
 import dotenv from "dotenv";
 import path from "path";
@@ -45,6 +46,16 @@ function parseVideoMode(value?: string): VideoMode | undefined {
   return undefined;
 }
 
+function parseReport(): string | ReporterDescription[] {
+  const reporters = process.env.REPORTER?.split(",").map(r => r.trim()) || ["html"];
+
+  if (reporters.length === 1) {
+    return reporters[0];
+  }
+
+  return reporters.map(name => [name] as const);
+}
+
 const commonUseOptions: PlaywrightTestConfig["use"] = {
   baseURL: process.env.BASE_URL,
   trace: parseTraceMode(process.env.TRACE) ?? "off",
@@ -65,7 +76,7 @@ const config: PlaywrightTestConfig = defineConfig({
   forbidOnly: isCI,
   retries,
   workers,
-  reporter: process.env.REPORTER || "html",
+  reporter: parseReport(),
   timeout: Number(process.env.TEST_TIMEOUT) || 60000,
   use: commonUseOptions,
   projects: [

@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import { Actor } from '@screenplay/core/Actor';
 import { NavigateTo } from '@screenplay/tasks/NavigateTo';
 import { IsHeroTitleVisible } from '@screenplay/questions/IsHeroTitleVisible';
+import { BrowseTheWeb } from '@screenplay/abilities/BrowseTheWeb';
 
 test.describe('Home Page - Screenplay', () => {
 
