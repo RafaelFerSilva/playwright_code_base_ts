@@ -9,3 +9,5 @@ uat.env
 rc.env
 env.*
 /dist
+/allure-report
+/allure-results
