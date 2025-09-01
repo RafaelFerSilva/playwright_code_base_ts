@@ -50,10 +50,36 @@ function parseReport(): string | ReporterDescription[] {
   const reporters = process.env.REPORTER?.split(",").map(r => r.trim()) || ["html"];
 
   if (reporters.length === 1) {
-    return reporters[0];
+    const [name, options] = parseReporterWithOptions(reporters[0]);
+    if (options) {
+      // Retorna array mutável com uma tupla
+      return [[name, options]];
+    }
+    return name; // string simples
   }
 
-  return reporters.map(name => [name] as const);
+  return reporters.map(r => {
+    const [name, options] = parseReporterWithOptions(r);
+    return options ? [name, options] as const : [name] as const;
+  });
+}
+
+function parseReporterWithOptions(input: string): [string, any?] {
+  const [name, opts] = input.split(":");
+  if (!opts) return [name];
+
+  const options = opts.split(";").reduce((acc, pair) => {
+    const [key, value] = pair.split("=");
+    if (key && value !== undefined) {
+      if (value === "true") acc[key] = true;
+      else if (value === "false") acc[key] = false;
+      else if (!isNaN(Number(value))) acc[key] = Number(value);
+      else acc[key] = value;
+    }
+    return acc;
+  }, {} as Record<string, any>);
+
+  return [name, options];
 }
 
 const commonUseOptions: PlaywrightTestConfig["use"] = {
