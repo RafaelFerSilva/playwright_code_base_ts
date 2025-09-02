@@ -1,4 +1,4 @@
-import { MySQLAdapter } from '@adapters/MySQLAdapter';
+import { IDatabaseAdapter } from '@interfaces/IDatabaseAdapter';
 
 export interface User {
   id: number;
@@ -7,7 +7,7 @@ export interface User {
 }
 
 export class UserRepository {
-  constructor(private dbAdapter: MySQLAdapter) {}
+  constructor(private dbAdapter: IDatabaseAdapter) {}
 
   async getUserById(id: number): Promise<User | null> {
     const rows = await this.dbAdapter.query('SELECT * FROM users WHERE id = ?', [id]);
@@ -15,14 +15,14 @@ export class UserRepository {
   }
 
   async insertUser(username: string, email: string): Promise<void> {
-    await this.dbAdapter.execute('INSERT INTO users (username, email) VALUES (?, ?)', [username, email]);
+    this.dbAdapter.execute('INSERT INTO users (username, email) VALUES (?, ?)', [username, email]);
   }
 
   async updateUserEmail(id: number, newEmail: string): Promise<void> {
-    await this.dbAdapter.execute('UPDATE users SET email = ? WHERE id = ?', [newEmail, id]);
+    this.dbAdapter.execute('UPDATE users SET email = ? WHERE id = ?', [newEmail, id]);
   }
 
   async deleteUser(id: number): Promise<void> {
-    await this.dbAdapter.execute('DELETE FROM users WHERE id = ?', [id]);
+    this.dbAdapter.execute('DELETE FROM users WHERE id = ?', [id]);
   }
 }

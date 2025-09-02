@@ -1,7 +1,7 @@
-import { MySQLAdapter } from '@adapters/MySQLAdapter';
+import { IDatabaseAdapter } from '@interfaces/IDatabaseAdapter';
 
 export class DbService {
-  constructor(private adapter: MySQLAdapter) {}
+  constructor(private adapter: IDatabaseAdapter) {}
 
   async executeScript(scriptPath: string) {
     return await this.adapter.executeScript(scriptPath);

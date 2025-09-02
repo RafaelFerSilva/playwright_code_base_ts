@@ -1,5 +1,5 @@
 import{ expect } from "@playwright/test";
-import { test } from '@fixtures/database';
+import { test } from '@fixtures/dbAdapter';
 import { Actor } from "@screenplay/core/Actor";
 import { AccessDatabase } from "@screenplay/abilities/AccessDatabase";
 

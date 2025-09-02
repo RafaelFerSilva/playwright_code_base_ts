@@ -1,5 +1,5 @@
 import { expect } from "@playwright/test";
-import { test } from "@fixtures/database";
+import { test } from "@fixtures/dbAdapter";
 import { DbService } from "@services/DbService";
 import { UserRepository } from "@repositories/UserRepository";
 
