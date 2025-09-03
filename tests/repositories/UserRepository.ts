@@ -1,4 +1,4 @@
-import { IDatabaseAdapter } from '@interfaces/IDatabaseAdapter';
+import { IDatabaseAdapter } from "@interfaces/IDatabaseAdapter";
 
 export interface User {
   id: number;

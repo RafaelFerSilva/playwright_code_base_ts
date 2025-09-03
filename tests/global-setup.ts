@@ -12,7 +12,6 @@ const dbConfig: DBConfig = {
 async function globalSetup() {
   const db = getDatabaseInstance(dbConfig);
   await db.connect();
-  console.log('Database connected in globalSetup');
 }
 
 export default globalSetup;

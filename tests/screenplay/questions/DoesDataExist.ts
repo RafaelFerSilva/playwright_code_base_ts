@@ -2,22 +2,19 @@ import { Actor } from '@screenplay/core/Actor';
 import { AccessDatabase } from '@screenplay/abilities/AccessDatabase';
 import { Question } from '@interfaces/IQuestion';
 
-export class DoesDataExist implements Question<boolean> {
-  private scriptPath: string;
-  private values: string[];
+export class DoesDataExist implements Question<any> {
+  private rows: any[];
 
-  constructor(scriptPath: string, values: string[]) {
-    this.scriptPath = scriptPath;
-    this.values = values;
+  constructor(rows: any[]) {
+    this.rows = rows;
   }
 
-  static fromFileWithValues(scriptPath: string, values: string[]) {
-    return new DoesDataExist(scriptPath, values);
+  static fromRows(rows: any[]) {
+    return new DoesDataExist(rows);
   }
 
-  async answeredBy(actor: Actor): Promise<boolean> {
-    const db = actor.abilityTo(AccessDatabase);
-    const { rows } = await db.replaceValuesAndExecuteScript(this.scriptPath, this.values);
-    return rows.length > 0;
+  async answeredBy(actor: Actor): Promise<any>{
+    actor.abilityTo(AccessDatabase);
+    return this.rows.length > 0;
   }
 }

@@ -11,7 +11,7 @@ import dotenv from "dotenv";
 import path from "path";
 
 const ENV = process.env.ENV || "uat";
-dotenv.config({ path: path.resolve(__dirname, `${ENV}.env`) });
+dotenv.config({ path: path.resolve(__dirname, `${ENV}.env`), quiet:true });
 
 const requiredEnvVars = ["BASE_URL"];
 for (const varName of requiredEnvVars) {
