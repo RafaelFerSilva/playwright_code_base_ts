@@ -29,8 +29,7 @@
       "@adapters/*": ["adapters/*"],
       "@sql/*": ["sql/*"],
       "@repositories/*": ["repositories/*"],
-      "@services/*": ["services/*"],
-      "@decorators/*": ["decorators/*"]
+      "@services/*": ["services/*"]
     }
   },
   "include": ["**/*.ts"],

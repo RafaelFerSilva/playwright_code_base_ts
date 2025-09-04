@@ -1,4 +1,4 @@
-import { getDatabaseInstance } from './adapters/DatabaseConnection';
+import { getDatabaseInstance } from '@adapters/DatabaseConnection';
 
 async function globalTeardown() {
   if (!getDatabaseInstance) return;

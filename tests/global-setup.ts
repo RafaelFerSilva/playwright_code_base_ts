@@ -1,5 +1,5 @@
 import { DBConfig } from '@interfaces/IDbConfig';
-import { getDatabaseInstance } from './adapters/DatabaseConnection';
+import { getDatabaseInstance } from '@adapters/DatabaseConnection';
 
 const dbConfig: DBConfig = {
   DB_HOST: process.env.DB_HOST!,
