@@ -6,7 +6,7 @@ import { ExecuteSqlScript } from "@screenplay/tasks/ExecuteSqlScript";
 import { DoesDataExist } from "@screenplay/questions/DoesDataExist";
 
 test.describe('Connect Database - Screenplay', () => {
-  test('Should Be Possible Access Home Page', async ({ dbAdapter }) => {
+  test('Should Be Possible Connect Database', async ({ dbAdapter }) => {
     const actor = new Actor('Tester').whoCan(AccessDatabase.using(dbAdapter));
     const scriptResult = await actor.attemptsTo(ExecuteSqlScript.fromFile('tests/sql/test.sql'))
     const hasRows = await actor.asksFor(DoesDataExist.fromRows(scriptResult))

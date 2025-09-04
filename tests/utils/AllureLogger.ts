@@ -1,8 +1,8 @@
-import * as allure from "allure-js-commons";
+import { test } from '@playwright/test';
 
 export class AllureLogger {
   static log(message: string) {
-    allure.logStep(message);
+    test.step(message, async () => {});
   }
 
   static info(message: string) {
@@ -17,14 +17,8 @@ export class AllureLogger {
     this.log(`ERROR: ${message}`);
   }
 
-  static attachment(name: string, content: string | Buffer, type: string) {
-    // Anexa conteúdo ao relatório (ex: texto, JSON, imagem)
-    allure.attachment(name, content, type);
-  }
-
   static step<T>(name: string, fn: () => Promise<T>): Promise<T> {
-    // Cria um step Allure com tratamento automático de erros e logs
-    const result = allure.step(name, async () => {
+    return test.step(name, async () => {
       try {
         return await fn();
       } catch (error) {
@@ -32,7 +26,5 @@ export class AllureLogger {
         throw error;
       }
     });
-
-    return Promise.resolve(result);
   }
 }

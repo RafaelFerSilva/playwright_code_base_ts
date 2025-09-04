@@ -6,6 +6,7 @@ import { AllureLogger } from "@utils/AllureLogger";
 
 export class Actor {
   private abilities = new Map<Function, Ability>();
+  private static indent = "  "; // 2 espaços para indentação
 
   constructor(public name: string) {}
 
@@ -24,6 +25,14 @@ export class Actor {
     return ability as T;
   }
 
+  static startTestLog(testName: string) {
+    console.info(`\n=== INÍCIO DO TESTE: ${testName} ===\n`);
+  }
+
+  static endTestLog(testName: string) {
+    console.info(`\n=== FIM DO TESTE: ${testName} ===\n\n`);
+  }
+
   async attemptsTo(...tasks: Task[]) {
     return Promise.all(
       tasks.map((task) =>
@@ -31,16 +40,21 @@ export class Actor {
           task.stepName?.() || `Task: ${task.constructor.name}`,
           async () => {
             const stepName = task.stepName?.() || task.constructor.name;
-            console.info(`[Actor: ${this.name}] Iniciando Task: ${stepName}`);
+            const testName = test.info().title;
+            console.info(
+              `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] Iniciando Task: ${stepName}`
+            );
             AllureLogger.info(`Iniciando Task: ${stepName}`);
 
             try {
               await task.performAs(this);
-              console.info(`[Actor: ${this.name}] Task concluída: ${stepName}`);
+              console.info(
+                `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] Task concluída: ${stepName}`
+              );
               AllureLogger.info(`Task concluída: ${stepName}`);
             } catch (error) {
               console.error(
-                `[Actor: ${this.name}] Erro na Task: ${stepName}`,
+                `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] Erro na Task: ${stepName}`,
                 error
               );
               AllureLogger.error(
@@ -68,7 +82,10 @@ export class Actor {
       question.stepName?.() || `Question: ${question.constructor.name}`,
       async () => {
         const stepName = question.stepName?.() || question.constructor.name;
-        console.info(`[Actor: ${this.name}] Respondendo Question: ${stepName}`);
+        const testName = test.info().title;
+        console.info(
+          `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] Respondendo Question: ${stepName}`
+        );
         AllureLogger.info(`Respondendo Question: ${stepName}`);
 
         try {
@@ -78,19 +95,21 @@ export class Actor {
             const errorMessage =
               options?.errorMessage ??
               `Question "${stepName}" retornou valor inválido: ${result}`;
-            console.error(`[Actor: ${this.name}] ${errorMessage}`);
+            console.error(
+              `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] ${errorMessage}`
+            );
             AllureLogger.error(errorMessage);
             throw new ErrorClass(errorMessage);
           }
 
           console.info(
-            `[Actor: ${this.name}] Question respondida: ${stepName}`
+            `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] Question respondida: ${stepName}`
           );
           AllureLogger.info(`Question respondida: ${stepName}`);
           return result;
         } catch (error) {
           console.error(
-            `[Actor: ${this.name}] Erro na Question: ${stepName}`,
+            `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] Erro na Question: ${stepName}`,
             error
           );
           AllureLogger.error(
