@@ -11,7 +11,7 @@ export class IsHeroTitleVisible implements Question {
     this.expectedText = expectedText;
   }
 
-  static onPage(expectedText: string = 'Test Automation Practice3'): IsHeroTitleVisible {
+  static onPage(expectedText: string = 'Test Automation Practice'): IsHeroTitleVisible {
     return new IsHeroTitleVisible(expectedText);
   }
 

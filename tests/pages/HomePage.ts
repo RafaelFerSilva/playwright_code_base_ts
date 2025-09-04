@@ -1,5 +1,5 @@
 import { Page, expect } from "@playwright/test";
-import { withAllureSteps } from "@decorators/AllureStep"
+import { withAllureSteps } from "@utils/AllureStep"
 
 
 class HomePageBase {
