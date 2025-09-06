@@ -28,3 +28,14 @@ export class DatabaseConnectionError extends TestError {
     this.name = "DatabaseConnectionError";
   }
 }
+
+export class ApiError extends Error {
+  constructor(
+    public readonly statusCode: number,
+    public readonly endpoint: string,
+    message: string
+  ) {
+    super(`API Error [${statusCode}] ${endpoint}: ${message}`);
+    this.name = 'ApiError';
+  }
+}

@@ -13,8 +13,22 @@ export class AllureLogger {
     this.log(`WARN: ${message}`);
   }
 
-  static error(message: string) {
-    this.log(`ERROR: ${message}`);
+  static error(message: string, error?: Error) {
+    console.error(`[ALLURE ERROR] ${message}`, error || '');
+    test.step(`❌ ${message}`, async () => {
+      if (error) {
+        this.attachment('Error Details', error.stack || error.message, 'text/plain');
+      }
+    });
+  }
+
+  static success(message: string, details?: any) {
+    console.info(`[ALLURE SUCCESS] ✅ ${message}`, details || '');
+    test.step(`✅ ${message}`, async () => {
+      if (details) {
+        this.attachment('Success Details', JSON.stringify(details, null, 2), 'application/json');
+      }
+    });
   }
 
   static step<T>(name: string, fn: () => Promise<T>): Promise<T> {
@@ -38,5 +52,26 @@ export class AllureLogger {
     } else {
       console.warn(`Attachment "${name}" não anexado: fora do contexto do teste`);
     }
+  }
+
+  static apiRequest(method: string, url: string, payload?: any) {
+    const message = `API ${method.toUpperCase()} ${url}`;
+    test.step(message, async () => {
+      this.attachment('Request URL', url, 'text/plain');
+      this.attachment('HTTP Method', method.toUpperCase(), 'text/plain');
+      if (payload) {
+        this.attachment('Request Payload', JSON.stringify(payload, null, 2), 'application/json');
+      }
+    });
+  }
+
+  static apiResponse(statusCode: number, responseBody?: any) {
+    const message = `API Response [${statusCode}]`;
+    test.step(message, async () => {
+      this.attachment('Status Code', statusCode.toString(), 'text/plain');
+      if (responseBody) {
+        this.attachment('Response Body', JSON.stringify(responseBody, null, 2), 'application/json');
+      }
+    });
   }
 }

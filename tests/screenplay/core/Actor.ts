@@ -1,3 +1,4 @@
+
 import { test } from "@playwright/test";
 import { Ability } from "@interfaces/IAbility";
 import { Question } from "@interfaces/IQuestion";
@@ -5,11 +6,21 @@ import { Task } from "@interfaces/ITask";
 import { AllureLogger } from "@utils/AllureLogger";
 import { TaskFailedError, QuestionValidationError } from "@errors/TestErrors";
 
+export interface QuestionValidationOptions<T> {
+  invalidValues?: T[];
+  errorMessage?: string;
+  errorClass?: new (questionName: string, message: string) => Error;
+}
+
 export class Actor {
   private abilities = new Map<Function, Ability>();
   private static indent = "  "; 
 
   constructor(public name: string) {}
+
+  static named(name: string): Actor {
+    return new Actor(name);
+  }
 
   whoCan(...abilities: Ability[]) {
     for (const ability of abilities) {
@@ -24,14 +35,6 @@ export class Actor {
       throw new Error(`${this.name} does not have ability ${abilityType.name}`);
     }
     return ability as T;
-  }
-
-  static startTestLog(testName: string) {
-    console.info(`\n=== ${testName} ===\n`);
-  }
-
-  static endTestLog(testName: string) {
-    console.info(`\n=== ${testName} ===\n\n`);
   }
 
   async attemptsTo(...tasks: Task[]) {
@@ -52,7 +55,7 @@ export class Actor {
               console.info(
                 `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] Task concluída: ${stepName}`
               );
-              AllureLogger.info(`Task concluída: ${stepName}`);
+              AllureLogger.success(`Task concluída: ${stepName}`);
             } catch (error) {
               console.error(
                 `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] `,
@@ -92,15 +95,15 @@ export class Actor {
               options?.errorMessage ??
               `Question "${stepName}" retornou valor inválido: ${result}`;
             console.error(
-              `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] `
+              `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] ${errorMessage}`
             );
             throw new ErrorClass(stepName, errorMessage);
           }
 
           console.info(
-            `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] Question respondida: ${stepName}`
+            `${Actor.indent}[Test: ${testName}] [Actor: ${this.name}] Question respondida: ${stepName} = ${result}`
           );
-          AllureLogger.info(`Question respondida: ${stepName}`);
+          AllureLogger.success(`Question respondida: ${stepName}`);
           return result;
         } catch (error) {
           console.error(
