@@ -14,7 +14,7 @@ export class QueryDatabase implements Question<any[]> {
   }
 
   async answeredBy(actor: Actor): Promise<any[]> {
-    const db = actor.abilityTo(AccessDatabase);
+    const db = actor.abilityTo(AccessDatabase).db();
     const results = await db.executeScript(this.scriptPath);
     return results;
   }

@@ -6,16 +6,11 @@ import { BrowseTheWeb } from "@screenplay/abilities/BrowseTheWeb";
 
 test.describe("Home Page - Screenplay", () => {
   test("Should Be Possible Access Home Page", async ({ page }) => {
-    const testName = test.info().title;
-    Actor.startTestLog(testName);
-
     const actor = new Actor("Tester").whoCan(BrowseTheWeb.using(page));
     await actor.attemptsTo(NavigateTo.theUrl());
     const isVisible = await actor.asksFor(IsHeroTitleVisible.onPage());
     if (!isVisible) {
       throw new Error("Hero title is not visible");
     }
-
-    Actor.endTestLog(testName);
   });
 });

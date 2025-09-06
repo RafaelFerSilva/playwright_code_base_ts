@@ -16,7 +16,8 @@ export function withAllureSteps<T extends { new(...args: any[]): {} }>(Base: T, 
             const stepName = stepNamePrefix
               ? `${stepNamePrefix} - ${propertyName}(${methodArgs.map(a => JSON.stringify(a)).join(', ')})`
               : `${propertyName}(${methodArgs.map(a => JSON.stringify(a)).join(', ')})`;
-
+            
+            console.info(`${stepName} is being executed`);
             return AllureLogger.step(stepName, async () => {
               return await originalMethod.apply(this, methodArgs);
             });

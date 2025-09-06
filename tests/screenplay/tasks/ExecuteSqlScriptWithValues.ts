@@ -16,7 +16,7 @@ export class ExecuteSqlScriptWithValues implements Task {
   }
 
   async performAs(actor: Actor): Promise<void> {
-    const db = actor.abilityTo(AccessDatabase);
+    const db = actor.abilityTo(AccessDatabase).db();
     await db.replaceValuesAndExecuteScript(this.scriptPath, this.values);
   }
 }

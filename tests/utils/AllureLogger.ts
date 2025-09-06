@@ -27,4 +27,16 @@ export class AllureLogger {
       }
     });
   }
+
+  static async attachment(name: string, content: string | Buffer, type: string) {
+    const testInfo = test.info();
+    if (testInfo) {
+      await testInfo.attach(name, {
+        body: typeof content === 'string' ? Buffer.from(content, 'utf-8') : content,
+        contentType: type,
+      });
+    } else {
+      console.warn(`Attachment "${name}" não anexado: fora do contexto do teste`);
+    }
+  }
 }

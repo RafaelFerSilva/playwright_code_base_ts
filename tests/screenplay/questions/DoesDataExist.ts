@@ -14,7 +14,7 @@ export class DoesDataExist implements Question<any> {
   }
 
   async answeredBy(actor: Actor): Promise<any>{
-    actor.abilityTo(AccessDatabase);
+    actor.abilityTo(AccessDatabase).db();
     return this.rows.length > 0;
   }
 }
