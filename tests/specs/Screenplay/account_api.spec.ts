@@ -24,7 +24,7 @@ test.describe("DemoQA Account API Tests - Service Layer Architecture", () => {
     );
   });
 
-  test("Deve registrar usuário usando Service com validações de negócio", async () => {
+  test("Must register user using Service with business validations", async () => {
     const userName = `serviceuser_${Date.now()}`;
     const password = "784512Asd!";
 
@@ -44,7 +44,7 @@ test.describe("DemoQA Account API Tests - Service Layer Architecture", () => {
     expect(response.userID).toBeTruthy();
   });
 
-  test("Service deve validar senha inválida antes de chamar API", async () => {
+  test("Service must validate invalid password before calling API", async () => {
     const userName = `invalidpass_${Date.now()}`;
     const invalidPassword = "123"; // Não atende critérios de negócio
 
@@ -56,7 +56,7 @@ test.describe("DemoQA Account API Tests - Service Layer Architecture", () => {
     ).rejects.toThrow("Password deve ter pelo menos 6 caracteres");
   });
 
-  test("Service deve validar username vazio antes de chamar API", async () => {
+  test("Service must validate empty username before calling API", async () => {
     const emptyUserName = "";
     const password = "784512Asd!";
 
@@ -68,7 +68,7 @@ test.describe("DemoQA Account API Tests - Service Layer Architecture", () => {
     ).rejects.toThrow("Username é obrigatório");
   });
 
-  test("Deve falhar ao tentar criar usuário duplicado (validação via Service)", async () => {
+  test("Should fail when trying to create duplicate user (validation via Service)", async () => {
     const userName = `duplicate_${Date.now()}`;
     const password = "784512Asd!";
 
